@@ -1,8 +1,6 @@
 package com.apiTask.AppsSquare.Adapter
 
-import android.app.Activity
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apiTask.AppsSquare.Model.DataModel
 import com.apiTask.AppsSquare.R
 import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideContext
 import de.hdodenhof.circleimageview.CircleImageView
 
-class DataAdapter(var myData:DataModel ,var context: Context) : RecyclerView.Adapter<DataAdapter.MyViewHolder>() {
+class DataAdapter(var myData:DataModel, var context: Context?) : RecyclerView.Adapter<DataAdapter.MyViewHolder>() {
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -30,7 +27,7 @@ class DataAdapter(var myData:DataModel ,var context: Context) : RecyclerView.Ada
 
     override fun onBindViewHolder(myHolder: MyViewHolder, position: Int) {
         val dataModel = myData.data.get(position)
-        Glide.with(View(context)).load(dataModel.image).into(myHolder.myImage)
+        Glide.with(View(context)).load(dataModel.image).placeholder(R.drawable.ic_launcher_background).into(myHolder.myImage)
         myHolder.myName.text = dataModel.name
         myHolder.myPrice.text = dataModel.price.toString()
     }

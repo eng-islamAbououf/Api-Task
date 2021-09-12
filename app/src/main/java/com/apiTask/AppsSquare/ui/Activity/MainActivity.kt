@@ -1,4 +1,4 @@
-package com.apiTask.AppsSquare.ui
+package com.apiTask.AppsSquare.ui.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,51 +13,74 @@ import com.apiTask.AppsSquare.Adapter.DataAdapter
 import com.apiTask.AppsSquare.Api.Calls
 import com.apiTask.AppsSquare.Api.Conn
 import com.apiTask.AppsSquare.Model.DataModel
+import com.apiTask.AppsSquare.MyInter
 import com.apiTask.AppsSquare.R
+import com.apiTask.AppsSquare.show
+import com.apiTask.AppsSquare.ui.Fragments.ProductFragment
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import javax.security.auth.callback.Callback
 
-class MainActivity : AppCompatActivity() {
-    lateinit var myRecycler : RecyclerView
-    lateinit var layoutManager: GridLayoutManager
-    lateinit var data : DataModel
-    lateinit var dataAdapter : DataAdapter
+class MainActivity : AppCompatActivity() ,MyInter {
+
     lateinit var constraintLayout : ConstraintLayout
     lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         initView()
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container,ProductFragment(this))
+                .commitNow()
+/*
+
+      //  initView()
         val conn =  Conn.calls
         val call = conn.getData()
 
         call.enqueue(object : retrofit2.Callback<DataModel> {
             override fun onResponse(call: Call<DataModel>?, response: Response<DataModel>?) {
-                if (response?.isSuccessful == true) {
+                if (response?.isSuccessful!!) {
                     data = response.body()
-                    install()
+    //                install()
                     constraintLayout.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
+                }
+                else {
+
                 }
             }
 
             override fun onFailure(call: Call<DataModel>?, t: Throwable?) {
-                Log.e("TAG", "onFailure: "+t.toString() )
+                show(t.toString(),1)
             }
 
+
         })
+
+ */
+    }
+
+    override fun changeLayout(status: Boolean) {
+        if(status){
+            constraintLayout.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }else {
+            constraintLayout.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        }
     }
 
 
 
     fun initView(){
-        myRecycler=findViewById(R.id.my_recycler)
         progressBar = findViewById(R.id.progress)
         constraintLayout = findViewById(R.id.layout)
     }
-
+/*
     fun install(){
 
         layoutManager = GridLayoutManager(this,2)
@@ -65,4 +88,6 @@ class MainActivity : AppCompatActivity() {
         dataAdapter = DataAdapter(data,this)
         myRecycler.adapter = dataAdapter
     }
+
+ */
 }
