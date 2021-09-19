@@ -7,7 +7,7 @@ object Conn {
 
     var calls = Retrofit
         .Builder()
-        .baseUrl("https://android-training.appssquare.com/api/")
+        .baseUrl("https://api.punkapi.com/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(Calls::class.java)

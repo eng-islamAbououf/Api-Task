@@ -22,19 +22,18 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import javax.security.auth.callback.Callback
 
-class MainActivity : AppCompatActivity() ,MyInter {
+class MainActivity : AppCompatActivity() {
 
-    lateinit var constraintLayout : ConstraintLayout
-    lateinit var progressBar: ProgressBar
+//    lateinit var constraintLayout : ConstraintLayout
+//    lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        initView()
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container,ProductFragment(this))
-                .commitNow()
+        //initView()
+//        supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.container,ProductFragment(this))
+//            .commitNow()
 /*
 
       //  initView()
@@ -64,22 +63,22 @@ class MainActivity : AppCompatActivity() ,MyInter {
  */
     }
 
-    override fun changeLayout(status: Boolean) {
-        if(status){
-            constraintLayout.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
-        }else {
-            constraintLayout.visibility = View.GONE
-            progressBar.visibility = View.VISIBLE
-        }
-    }
+//    override fun changeLayout(status: Boolean) {
+////        if(status){
+////            constraintLayout.visibility = View.VISIBLE
+////            progressBar.visibility = View.GONE
+////        }else {
+////            constraintLayout.visibility = View.GONE
+////            progressBar.visibility = View.VISIBLE
+////        }
+//    }
 
 
 
-    fun initView(){
-        progressBar = findViewById(R.id.progress)
-        constraintLayout = findViewById(R.id.layout)
-    }
+//    fun initView(){
+//        progressBar = findViewById(R.id.progress)
+//        constraintLayout = findViewById(R.id.layout)
+//    }
 /*
     fun install(){
 

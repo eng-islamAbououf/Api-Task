@@ -3,7 +3,6 @@ package com.apiTask.AppsSquare.ui.Fragments
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apiTask.AppsSquare.Api.Conn
-import com.apiTask.AppsSquare.Model.Data
 import com.apiTask.AppsSquare.Model.DataModel
 import org.json.JSONObject
 import retrofit2.Call
@@ -25,7 +24,7 @@ class MyViewModel : ViewModel() {
                 ) {
                     when (response.code()) {
                         200 -> {
-                            var data: DataModel = response.body()
+                            var data = response.body()
                             productData.postValue(data)
                         }
 

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface Calls {
 
-    @GET("products")
+    @GET("beers")
     fun getData():Call<DataModel>
 }
