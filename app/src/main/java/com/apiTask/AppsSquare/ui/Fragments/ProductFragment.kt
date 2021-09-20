@@ -23,12 +23,13 @@ import com.apiTask.AppsSquare.Model.DataModel
 import com.apiTask.AppsSquare.R
 import com.apiTask.AppsSquare.MyInter as MyInter
 
-class ProductFragment(var m : MyInter) : Fragment() {
+class ProductFragment() : Fragment(),ClickItem {
 
     lateinit var myRecyclerView: RecyclerView
     lateinit var myAdapter: DataAdapter
     lateinit var myViewModel : MyViewModel
-    lateinit var x : TextView
+    lateinit var xName : TextView
+    lateinit var myView: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,19 +39,25 @@ class ProductFragment(var m : MyInter) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView(view)
         myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
         myViewModel.getProductFromDatabase()
 
         myViewModel.productData.observe(viewLifecycleOwner, Observer {
             //dataModel = it
-            install(view,it)
-            m.changeLayout(true)
+            install(it)
         })
 
         myViewModel.errors.observe(viewLifecycleOwner, Observer {
             Toast.makeText(view.context,it, Toast.LENGTH_SHORT).show()
-            m.changeLayout(false)
         })
+
+//        xName.setOnClickListener {
+//            val action = ProductFragmentDirections.productToDetail(dataDes = myAdapter.myData.get(0).description,
+//                    dataImage = myAdapter.myData.get(0).image_url,
+//                    dataName = myAdapter.myData.get(0).name)
+//            Navigation.findNavController(view).navigate(action)
+//        }
 
     }
 
@@ -58,16 +65,25 @@ class ProductFragment(var m : MyInter) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_product, container, false)
+        myView = inflater.inflate(R.layout.fragment_product, container, false)
+        return myView
     }
 
-    fun install(view: View,dataModel: DataModel){
+    fun initView(view: View){
         myRecyclerView = view.findViewById(R.id.my_recycler)
-        x = view.findViewById(R.id.app_name)
-        myAdapter = DataAdapter(dataModel,view.context)
-        val layoutManager = GridLayoutManager(view.context,1)
-        myRecyclerView.layoutManager = layoutManager
+        xName = view.findViewById(R.id.app_name)
+    }
+
+    fun install(dataModel: DataModel){
+        myAdapter = DataAdapter(dataModel,context,this)
         myRecyclerView.adapter = myAdapter
+    }
+
+    override fun getData(pos: Int) {
+        val action = ProductFragmentDirections.productToDetail(dataDes = myAdapter.myData.get(0).description,
+            dataImage = myAdapter.myData.get(pos).image_url,
+            dataName = myAdapter.myData.get(pos).name)
+        Navigation.findNavController(myView).navigate(action)
     }
 //    override fun getData(pos: Int) {
 //        d = myAdapter.myData.get(pos)

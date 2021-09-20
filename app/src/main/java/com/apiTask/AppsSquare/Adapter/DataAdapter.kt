@@ -12,19 +12,24 @@ import com.apiTask.AppsSquare.R
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
-class DataAdapter(var myData: DataModel, var context: Context?) : RecyclerView.Adapter<DataAdapter.MyViewHolder>() {
+class DataAdapter(var myData: DataModel, var context: Context? , var cx : ClickItem) : RecyclerView.Adapter<DataAdapter.MyViewHolder>() {
 
 
     var pos : Int = 0
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View,li : ClickItem) : RecyclerView.ViewHolder(itemView){
         var myName : TextView = itemView.findViewById(R.id.my_name)
         var myPrice : TextView = itemView.findViewById(R.id.my_des)
         var myImage : CircleImageView = itemView.findViewById(R.id.my_image)
+        init {
+            itemView.setOnClickListener {
+                li.getData(pos = adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false)
-        return MyViewHolder(view)
+        return MyViewHolder(view,cx)
     }
 
     override fun getItemId(position: Int): Long {

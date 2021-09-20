@@ -1,9 +1,11 @@
 package com.apiTask.AppsSquare.ui.Fragments
 
+import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.apiTask.AppsSquare.Api.Conn
 import com.apiTask.AppsSquare.Model.DataModel
+import com.apiTask.AppsSquare.R
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

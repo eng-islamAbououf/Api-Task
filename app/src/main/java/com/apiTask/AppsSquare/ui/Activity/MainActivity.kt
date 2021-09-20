@@ -24,8 +24,6 @@ import javax.security.auth.callback.Callback
 
 class MainActivity : AppCompatActivity() {
 
-//    lateinit var constraintLayout : ConstraintLayout
-//    lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
