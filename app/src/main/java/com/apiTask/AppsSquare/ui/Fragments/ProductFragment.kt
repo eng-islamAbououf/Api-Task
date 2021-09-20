@@ -23,13 +23,14 @@ import com.apiTask.AppsSquare.Model.DataModel
 import com.apiTask.AppsSquare.R
 import com.apiTask.AppsSquare.MyInter as MyInter
 
-class ProductFragment() : Fragment(),ClickItem {
+class ProductFragment() : Fragment(),ClickItem  {
 
     lateinit var myRecyclerView: RecyclerView
     lateinit var myAdapter: DataAdapter
     lateinit var myViewModel : MyViewModel
-    lateinit var xName : TextView
     lateinit var myView: View
+    lateinit var progressBar: ProgressBar
+    lateinit var layout: ConstraintLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,10 +47,14 @@ class ProductFragment() : Fragment(),ClickItem {
         myViewModel.productData.observe(viewLifecycleOwner, Observer {
             //dataModel = it
             install(it)
+            progressBar.visibility = View.GONE
+            layout.visibility = View.VISIBLE
         })
 
         myViewModel.errors.observe(viewLifecycleOwner, Observer {
             Toast.makeText(view.context,it, Toast.LENGTH_SHORT).show()
+            progressBar.visibility = View.VISIBLE
+            layout.visibility = View.GONE
         })
 
 //        xName.setOnClickListener {
@@ -71,7 +76,8 @@ class ProductFragment() : Fragment(),ClickItem {
 
     fun initView(view: View){
         myRecyclerView = view.findViewById(R.id.my_recycler)
-        xName = view.findViewById(R.id.app_name)
+        progressBar = view.findViewById(R.id.product_progress)
+        layout=view.findViewById(R.id.product_layout)
     }
 
     fun install(dataModel: DataModel){
@@ -80,11 +86,13 @@ class ProductFragment() : Fragment(),ClickItem {
     }
 
     override fun getData(pos: Int) {
-        val action = ProductFragmentDirections.productToDetail(dataDes = myAdapter.myData.get(0).description,
-            dataImage = myAdapter.myData.get(pos).image_url,
-            dataName = myAdapter.myData.get(pos).name)
+        val action = ProductFragmentDirections.productToDetail(
+                dataDes = myAdapter.myData.get(0).description,
+                dataImage = myAdapter.myData.get(pos).image_url,
+                dataName = myAdapter.myData.get(pos).name)
         Navigation.findNavController(myView).navigate(action)
     }
+
 //    override fun getData(pos: Int) {
 //        d = myAdapter.myData.get(pos)
 //
